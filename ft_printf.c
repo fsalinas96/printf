@@ -6,7 +6,7 @@
 /*   By: fsalinas <fsalinas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/19 13:58:27 by fsalinas          #+#    #+#             */
-/*   Updated: 2026/10/19 14:12:38 by fsalinas         ###   ########.fr       */
+/*   Updated: 2026/10/19 20:29:21 by fsalinas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,23 @@ int	ft_typecheck(char s, va_list args)
 	int	digits;
 
 	digits = 0;
-	if (s == 'c')
+	if (!s)
+		return (0);
+	else if (s == 'c')
 		digits = digits + ft_putchar(va_arg(args, int));
-	if (s == 's')
+	else if (s == 's')
 		digits = digits + ft_putstr(va_arg(args, char *));
-	if (s == 'p')
+	else if (s == 'p')
 		digits = digits + ft_p(va_arg(args, void *));
-	if (s == 'd' || s == 'i')
+	else if (s == 'd' || s == 'i')
 		digits = digits + ft_num(s, va_arg(args, int));
-	if (s == 'u')
+	else if (s == 'u')
 		digits = digits + ft_num(s, va_arg(args, unsigned int));
-	if (s == 'x')
+	else if (s == 'x')
 		digits = digits + ft_putnbrhex(va_arg(args, unsigned int));
-	if (s == 'X')
+	else if (s == 'X')
 		digits = digits + ft_putnbruphex(va_arg(args, unsigned int));
-	if (s == '%')
+	else if (s == '%')
 	{
 		write(1, &s, 1);
 		digits++;
@@ -77,6 +79,8 @@ int	ft_printf(const char *s, ...)
 
 	i = 0;
 	total = 0;
+	if (!s)
+		return (0);
 	va_start(args, s);
 	while (s[i])
 	{
@@ -91,8 +95,6 @@ int	ft_printf(const char *s, ...)
 			i++;
 			total = total + 1;
 		}
-		else if (s[i] == '\0')
-			break ;
 	}
 	va_end (args);
 	return (total);
